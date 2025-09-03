@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>K3LK - Data and App</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine (head only, tidak ada script di bawah) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Icons & Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+      body { font-family: "Inter", sans-serif; }
+      html, body { cursor: default; }
+      a, button { cursor: pointer; }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-800 min-h-screen flex flex-col"
+    x-data="{}"
+    @keydown.escape.window="$refs.reportModal.classList.add('hidden');$refs.dormModal.classList.add('hidden');$refs.k3lkModal.classList.add('hidden');$refs.dmModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')"
+  >
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-30">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#" class="flex items-center space-x-3 select-none">
+          <img src="img/logo.png" alt="K3LK logo" class="max-h-12 object-contain" />
+          <span class="text-2xl font-bold">K3LK</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="pt-24 flex-grow max-w-7xl mx-auto px-6">
+      <!-- Welcome -->
+      <section class="mt-2 mb-24 select-none" id="welcome">
+        <a href="#" class="flex items-center justify-center space-x-3 select-none mb-2">
+          <img src="img/logo.png" alt="K3LK logo" class="max-h-24 object-contain"/>
+        </a>
+        <h1 class="text-5xl font-extrabold text-center mb-6">Welcome to K3LK UMB</h1>
+        <p class="text-center text-gray-700 max-w-2xl mx-auto text-lg">
+          K3LK bukan sekadar aturan, tapi budaya yang kita bangun bersama. Di lingkungan kampus, keselamatan, kesehatan kerja, dan kepedulian terhadap lingkungan adalah fondasi bagi proses belajar yang aman, nyaman, dan berkelanjutan. Komitmen ini tumbuh dari kesadaran setiap individu untuk menjaga ruang bersama demi masa depan yang lebih baik.
+        </p>
+      </section>
+
+      <!-- Data Section -->
+      <section id="data" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Our Data</h2>
+        <!-- Mobile: 2 kolom; Desktop: 4 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center">
+            <img class="w-20 h-20 mb-4" src="img/APAR.png" alt="APAR" />
+            <h3 class="font-semibold text-lg">APAR</h3>
+          </div>
+
+          <button
+            @click="$refs.reportModal.classList.remove('hidden');document.body.classList.add('overflow-hidden')"
+            class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center"
+          >
+            <img class="w-20 h-20 mb-4" src="img/MONTHLY REPORT.png" alt="Monthly Report" />
+            <h3 class="font-semibold text-lg">Monthly Report</h3>
+          </button>
+
+          <button
+            @click="$refs.dormModal.classList.remove('hidden');document.body.classList.add('overflow-hidden')"
+            class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center"
+          >
+            <img class="w-20 h-20 mb-4" src="img/DORMITORY.png" alt="Dormitory" />
+            <h3 class="font-semibold text-lg">Dormitory</h3>
+          </button>
+
+          <div class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center">
+            <img class="w-20 h-20 mb-4" src="img/P3K.png" alt="P3K" />
+            <h3 class="font-semibold text-lg">P3K</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- App Section -->
+      <section id="app" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Our App</h2>
+        <!-- Mobile: 2 kolom; Desktop: 4 kolom -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <button
+            @click="$refs.k3lkModal.classList.remove('hidden');document.body.classList.add('overflow-hidden')"
+            class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center"
+          >
+            <img class="w-20 h-20 mb-4" src="img/APP HSE.png" alt="K3LK UMB" />
+            <h3 class="font-semibold text-lg">K3LK UMB</h3>
+          </button>
+
+          <button
+            @click="$refs.dmModal.classList.remove('hidden');document.body.classList.add('overflow-hidden')"
+            class="bg-white shadow-md hover:shadow-xl transition p-6 flex flex-col items-center text-center"
+          >
+            <img class="w-20 h-20 mb-4" src="img/APP DORMI.png" alt="Dormitory Management UMB" />
+            <h3 class="font-semibold text-lg">Dormitory Management UMB</h3>
+          </button>
+
+          
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== MODALS (1 div per modal) ===================== -->
+
+    <!-- Modal Report -->
+    <div
+      x-ref="reportModal"
+      class="hidden fixed inset-0 z-50 grid place-items-center bg-black/50 px-4"
+      role="dialog" aria-modal="true" tabindex="-1"
+      @click.self="$refs.reportModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')"
+    >
+      <div class="bg-white shadow-lg p-6 max-w-md w-full relative mx-4 sm:mx-0">
+        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+                @click="$refs.reportModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-xl font-bold text-center">Monthly Report</h3>
+        <p class="text-gray-700 py-2 text-center">Silahkan pilih bulan :</p>
+        <div class="flex flex-col space-y-3 max-w-xs mx-auto">
+          <a href="#/report/august"    class="py-2 px-4 text-center bg-green-600 text-white  ">Agustus</a>
+          <a href="#/report/september" class="py-2 px-4 text-center bg-green-600 text-white  ">September</a>
+          <a href="#/report/november"  class="py-2 px-4 text-center bg-green-600 text-white  ">November</a>
+          <a href="#/report/december"  class="py-2 px-4 text-center bg-green-600 text-white  ">December</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Dormitory (DATA) -->
+    <div
+      x-ref="dormModal"
+      class="hidden fixed inset-0 z-50 grid place-items-center bg-black/50"
+      role="dialog" aria-modal="true" tabindex="-1"
+      @click.self="$refs.dormModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')"
+    >
+      <div class="bg-white shadow-lg p-6 max-w-md w-full relative mx-4 sm:mx-0  -lg">
+        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+                @click="$refs.dormModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-xl font-bold text-center">Dormitory Menu</h3>
+        <p class="text-gray-700 py-2 text-center">Silahkan pilih data :</p>
+        <div class="flex flex-col space-y-3 max-w-xs mx-auto">
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRHP9uuhvdvzDSCZJ_ZIf6ONTXshBMLrZ_8f-sY5PfODHNrIfRH8TffGi-0iNACXfaRDP3izHIYgmlE/pubhtml?gid=0&single=true"
+                target="_blank" rel="noopener noreferrer" class="py-2 px-4 text-center bg-green-600 text-white"> Data Student Internasional </a>
+
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRHP9uuhvdvzDSCZJ_ZIf6ONTXshBMLrZ_8f-sY5PfODHNrIfRH8TffGi-0iNACXfaRDP3izHIYgmlE/pubhtml?gid=432639140&single=true"    
+          target="_blank" rel="noopener noreferrer" class="py-2 px-4 text-center bg-green-600 text-white">Data Dormitory</a>
+
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQUqkaZjj3_M2BajlTOOCfS-kbjj26oic71VoGW3555h07k1YQ1b4bGJZqlxXNT7axEBen2fv68BduZ/pubhtml?gid=2038307969&single=true"    
+          target="_blank" rel="noopener noreferrer" class="py-2 px-4 text-center bg-green-600 text-white">Data Dormitory Facilities and Infrastructure</a>
+
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRHP9uuhvdvzDSCZJ_ZIf6ONTXshBMLrZ_8f-sY5PfODHNrIfRH8TffGi-0iNACXfaRDP3izHIYgmlE/pubhtml?gid=1029068804&single=true"    
+          target="_blank" rel="noopener noreferrer" class="py-2 px-4 text-center bg-green-600 text-white">Data Permission Exit and Enter Student Internasional</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal K3LK App -->
+    <div
+      x-ref="k3lkModal"
+      class="hidden fixed inset-0 z-50 grid place-items-center bg-black/50"
+      role="dialog" aria-modal="true" tabindex="-1"
+      @click.self="$refs.k3lkModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')"
+    >
+      <div class="bg-white shadow-lg p-6 max-w-md w-full relative mx-4 sm:mx-0  -lg">
+        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+                @click="$refs.k3lkModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-xl font-bold text-center">K3LK App</h3>
+        <p class="text-gray-700 py-2 text-center">Pilih menu :</p>
+        <div class="flex flex-col space-y-3 max-w-xs mx-auto">
+          <a href="#/k3lk/monitoring-apar" class="py-2 px-4 text-center bg-green-600 text-white  ">Monitoring APAR</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Dormitory Management (APP) -->
+    <div
+      x-ref="dmModal"
+      class="hidden fixed inset-0 z-50 grid place-items-center bg-black/50"
+      role="dialog" aria-modal="true" tabindex="-1"
+      @click.self="$refs.dmModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')"
+    >
+      <div class="bg-white shadow-lg p-6 max-w-md w-full relative mx-4 sm:mx-0  -lg">
+        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+                @click="$refs.dmModal.classList.add('hidden');document.body.classList.remove('overflow-hidden')">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-xl font-bold text-center">Dormitory Management</h3>
+        <p class="text-gray-700 py-2 text-center">Silahkan pilih salah satu :</p>
+        <div class="flex flex-col space-y-3 max-w-xs mx-auto">
+          <a href="https://script.google.com/macros/s/AKfycbynNFynX29xp6CiDD7DG5IKxT8IyI8Kpj1Us5dbx--fVv0PiW_uGlwUI9Hq5DOTb0YwIA/exec"       class="py-2 px-4 text-center bg-green-600 text-white  ">Kelola Mahasiswa</a>
+          <a href="https://script.google.com/macros/s/AKfycbynNFynX29xp6CiDD7DG5IKxT8IyI8Kpj1Us5dbx--fVv0PiW_uGlwUI9Hq5DOTb0YwIA/exec?page=detail_dormitory"          class="py-2 px-4 text-center bg-green-600 text-white  ">Kelola Asrama</a>
+          <a href="https://script.google.com/macros/s/AKfycbynNFynX29xp6CiDD7DG5IKxT8IyI8Kpj1Us5dbx--fVv0PiW_uGlwUI9Hq5DOTb0YwIA/exec?page=detail_izin"      class="py-2 px-4 text-center bg-green-600 text-white  ">Kelola Permission</a>
+          <a href="https://script.google.com/macros/s/AKfycbxj_2KACnO2I8Q6TCKtlCkzAeH91M2P3pzhVBT3ov1f7W2z1mRCtF0c8fTAQ0ZbFAl_/exec" class="py-2 px-4 text-center bg-green-600 text-white  ">Report Facility</a>
+        </div>
+      </div>
+    </div>
+    <!-- =================== END MODALS =================== -->
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
+        <p>© 2024 K3LK UMB. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
